@@ -9,7 +9,7 @@ class HeroesController < ApplicationController
         hero = Hero.find(params[:id])
         if hero
             render json: hero, only: [:id, :name, :super_name], include: { powers: { only: [:id, :name, :description] } }
-        else
+        rescue ActiveRecord::RecordNotFound
             render json: { error: 'Hero not found' }, status: :not_found
         end
     end
